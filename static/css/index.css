@@ -1,0 +1,476 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  font-family: 'Microsoft YaHei', sans-serif;
+}
+body {
+  font-size: 14px;
+  color: #555;
+}
+.p5 {
+  padding: 5px;
+}
+.m-lr {
+  margin: 0 10px;
+}
+.container {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  min-width: 320px;
+  /* max-width: 750px; */
+  margin: 0 auto;
+  position: absolute;
+}
+.mui-backdrop {
+  background-color: rgba(0,0,0,.8);
+}
+.container>.bgImg {
+  -webkit-touch-callout: none; /*系统默认菜单被禁用*/
+  -webkit-user-select: none; /*webkit浏览器*/
+  -khtml-user-select: none; /*早起浏览器*/
+  -moz-user-select: none; /*火狐浏览器*/
+  -ms-user-select: none; /*IE浏览器*/
+  /* user-select: none; 用户是否能够选中文本 */
+}
+.codeLine input {
+  -webkit-user-select: auto;
+  /* pointer-events: none; */
+}
+.mask{
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left:0;
+  top:0;
+  background-color: rgba(0,0,0,.8);
+  z-index: 900;
+}
+/* 竖屏状态下 */
+@media screen and (orientation: portrait) {
+  .container {
+    width: 100vh;
+    height: 100vw;
+    top: 0;
+    left: 100vw;
+    transform: rotate(90deg);
+    transform-origin: 0% 0%;
+  }
+  #form,
+  #form2 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) translateZ(999px);
+    /* border-radius: 10px;  */
+    width: 90%;
+    /* height: 2rem; */
+    padding-right: 5px;
+    z-index:999;
+  }
+}
+
+.loading {
+  /* background-color: red; */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  animation: rotate 1s linear infinite;
+}
+.loading>.mui-icon {
+  font-size: 60px;
+  color: #ccc;
+}
+@keyframes rotate {
+  from {
+    transform: translate(-50%,-50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%,-50%) rotate(360deg);
+  }
+}
+/* 横屏状态下 */
+@media screen and (orientation: landscape) {
+  .mask{
+    display: block;
+  }
+  .mask .maskMsg {
+    position: absolute;
+    width: 70%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index:901;
+  }
+  .mask .maskMsg p{
+    font-size: 0.25rem;
+    color:#ccc;
+    line-height: 0.3rem;
+    text-align: center;
+  }
+  .container {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+  #form,
+  #form2 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) translateZ(999px);
+    /* border-radius: 10px; */
+    width: 90%;
+    /* height: 2rem; */
+    padding-right: 5px;
+    z-index:999;
+  }
+}
+/* 元素样式开始 */
+.shareImg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  position: relative;
+}
+.shareImg img {
+  /* width: 100%; */
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.shareImg .close,
+.shareImg .saveGlory {
+  position: absolute;
+}
+.shareImg .close {
+  right: 10px;
+  top: 10px;
+  width: 40px;
+  height: 40px;
+  /* background-color: rgba(0, 0, 0, 0.3); */
+  text-align: center;
+  line-height: 40px;
+  color: #fff;
+  background-color: black;
+  border-radius: 50%;
+  font-size: 36px;
+}
+.shareImg .saveGlory {
+  left: 50%;
+  transform: translate(-50%, 0);
+  bottom: 5%;
+  color: #fff;
+  padding: 5px 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  animation: jump 1s alternate infinite;
+}
+@keyframes jump {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.bgImg {
+  height: 100%;
+  /* background-color: green; */
+  position: absolute;
+}
+.bgImg > li {
+  float: left;
+  height: 100%;
+  position: relative;
+}
+.bgImg img {
+  height: 100%;
+}
+.people {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%) translateZ(888px);
+  z-index: 888;
+
+}
+.people img {
+  height: 3rem;
+  
+}
+.left,
+.right {
+  width: 44px;
+  height: 62px;
+  background-color: green;
+  position: absolute;
+  bottom: 5px;
+  z-index: 888;
+  padding: 15px;
+  box-sizing: content-box;
+}
+.left {
+  left: 50px;
+  background: url('../images/img02/left.png') no-repeat;
+  background-size: 44px 62px;
+  background-origin: content-box;
+}
+.right {
+  right: 50px;
+  background: url('../images/img02/right.png') no-repeat;
+  background-size: 44px 62px;
+  background-origin: content-box;
+}
+/* 控制元素隐藏 */
+.current {
+  display: none;
+}
+
+/* 图片的样式开始 */
+.imgOne .name,
+.imgTwo .text,
+.imgTwo .info,
+.imgThree .glory,
+.imgSix .btn {
+  position: absolute;
+  top: 40%;
+}
+.imgOne .name {
+  height: 30px;
+  line-height: 30px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: .4rem;
+}
+.imgTwo .info,
+.imgThree .glory {
+  top: 25%;
+  right: 42%;
+  /* border: 2px solid #fff; */
+}
+.imgTwo .info {
+  /* width: 4rem; */
+  width: 3rem;
+  height: 4rem;
+  overflow: hidden;
+}
+.imgTwo .info img {
+  height: 100%;
+  width: 100%;
+}
+.imgTwo .text {
+  width: 4.5rem;
+  height: 3rem;
+  /* border: 1px solid green; */
+  left: 12%;
+}
+.imgTwo .text .name {
+  margin-top: 5px;
+  /* padding-bottom: 10px; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+}
+.imgTwo .text > p {
+  font-size: 12px;
+  margin-bottom: 0;
+  white-space:normal; 
+  word-break:break-all;
+}
+.imgTwo .text .name > span {
+ 
+  padding-right: 10px;
+  font-weight: bold;
+}
+.imgThree .glory {
+  /* width: 2.5rem; */
+  height: 4rem;
+  background-color: skyblue;
+  top: 23%;
+  right: 42%;
+}
+.imgFour .story,
+.imgFive .message {
+  position: absolute;
+  top: 40%;
+  right: 42%;
+  top: 35%;
+  overflow: hidden;
+}
+.story .swiper-slide>img {
+  width: 100%;
+  height: 100%;
+}
+.imgFour .story {
+  background-color: #fff;
+  width: 5rem;
+  height: 4rem;
+  top: 25%;
+  border-radius: 5px;
+  border: 2px solid #fff;
+}
+.imgDes {
+  position: absolute;
+  width: 2rem;
+  /* height: 1rem; */
+  /* background-color: green; */
+  left: 10%;
+  top: 35%;
+  white-space:normal; 
+  word-break:break-all;
+}
+.imgFive .message {
+  right: 14%;
+  top: 26%;
+  background: url('../images/bg-message.png') no-repeat;
+  background-size: cover;
+  background-position: center center;
+  padding: 10px 10px 10px 10px;
+  width: 5.8rem;
+  height: 4.2rem;
+  overflow: auto;
+}
+.imgFive .message ul {
+  height: 100%;
+  overflow: hidden;
+}
+.imgFive .message li {
+  width: 100%;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+.imgFive .message li > title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.imgFive .message .tips {
+  /* width: 2.5rem; */
+  text-align: center;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #7ab3df;
+  padding: 5px;
+}
+.imgFive .message .tips.loading {
+  background-color: transparent;
+}
+
+.imgFive .message li .title .tel {
+  color: black;
+  font-weight: bold;
+  padding: 0 10px;
+}
+.imgFive .message li .detail {
+  background-color: #fff;
+  border: 1px solid #f7f7f7;
+  padding: 3px;
+  height: 1.5rem;
+  white-space:normal; 
+  word-break:break-all;
+}
+.imgFive .icon {
+  position: absolute;
+  right: 0.5rem;
+  top: 2.2rem;
+  padding: 10px;
+  z-index: 887;
+}
+.imgFive .icon .gree {
+  margin-bottom: 20px;
+}
+.imgFive .icon .gree,
+.imgFive .icon .comment {
+  position: relative;
+}
+.imgFive .icon .number {
+  position: absolute;
+  left: 58%;
+  top: -10px;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.imgFive .icon .addOne {
+  position: absolute;
+  right: -8px;
+  top: -2px;
+  /* transform: translateX(-50%); */
+  display: none;
+  font-weight: bolder;
+  font-size: 16px;
+}
+.imgFive .icon .number .mui-badge {
+  display: block;
+  margin: 18px 5px;
+}
+.imgFive .icon img {
+  width: 29px;
+  height: 29px;
+}
+.imgSix .btn {
+  left: 65%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.imgSix .btn-share {
+  background-color: #4492cf;
+  border: none;
+}
+.imgSix .watchAgin {
+  background-color: #7ab3df;
+  border: none;
+}
+.imgSix .btn .p10 {
+  padding: 20px 0;
+}
+.swiper-scrollbar-drag {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* 模态框 */
+#form .code {
+  width: 60%;
+}
+#form .getCode {
+  width: 40%;
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 1px;
+  border: 1px solid transparent;
+}
+#form .btn-cancel,
+#form2 .btn-cancel {
+  font-size: 36px;
+  cursor:pointer;
+}
+#form .btn-confirm,
+#form2 .btn-confirm {
+  background-color: #5294d1;
+  color: #fff;
+  border-radius: 16px;
+  padding: 6px 20px;
+  margin: 10px 0;
+  font-size: 14px;
+  border: none;
+  /* box-shadow: none; */
+}
+/* 去掉mui prompt标题 */
+
+.mui-input-group .mui-button-row {
+  height: auto;
+}
+.mui-popup-input input {
+  border-radius: 10px;
+  margin-top: 8px;
+}

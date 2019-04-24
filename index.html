@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 ,maximum-scale=1,minimum-scale=1,user-scalable=no"  />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no" >
+    <!-- UC强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <title>第五届全国优秀报关员</title>
+    <link rel="stylesheet" href="./static/lib/mui/css/mui.min.css" />
+    <link rel="stylesheet" href="./static/lib/swiper.css" />
+    <link rel="stylesheet" href="./static/css/common.css" />
+    <link rel="stylesheet" href="./static/css/index.css" />
+  </head>
+  <body>
+    <div class='mask'> 
+      <div class='maskMsg'>
+        <p>请调整合适的屏幕放置位置，以便更好体验！</p>
+        <p>（如开启手机自动旋转功能，请关闭）</p>
+      </div>
+    </div>
+    <div class="loading"><span class="mui-icon mui-icon-spinner mui-spin"></span></div>
+    <div class="container current">
+      <div class="shareImg"></div>
+      <ul class="bgImg control">
+        <li class="imgOne">
+          <img src="./static/images/screen/0.png" alt="" />
+          <div class="name"></div>
+        </li>
+        <li class="imgTwo">
+          <img src="./static/images/screen/1.png" alt="" />
+          <div class="personDesc"><!-- 挖坑 个人展 --></div>
+        </li>
+        <li class="imgThree">
+          <img src="./static/images/screen/2.png" alt="" />
+          <div class="glory"></div>
+        </li>
+        <li class="imgFour">
+          <img src="./static/images/screen/3.png" alt="" />
+          <div class="myStory"><!-- 故事展挖坑 --></div>
+        </li>
+        <!-- 留言板 -->
+        <li class="imgFive">
+          <img src="./static/images/screen/4.png" alt="" />
+          <div class="message">
+            <div class="items">
+              <!-- 根据后台的数据动态生成的结构 -->
+            </div>
+            <p class="tips">点击加载更多...</p>
+          </div>
+          <div class="icon">
+            <span class="mui-badge mui-badge-warning mui-badge-inverted addOne"
+              >+1</span>
+            <div class="gree p5" data-flag="1">
+              <div class="number number-gree mui-badge  mui-badge-inverted">0</div>
+              <img src="./static/images/img02/yes01.png" alt="" />
+            </div>
+            <div class="comment p5" data-flag="2">
+              <div class="number number-comment mui-badge mui-badge-inverted">0</div>
+              <img src="./static/images/img02/message-icon.png" alt="" />
+            </div>
+          </div>
+        </li>
+        <li class="imgSix">
+          <img src="./static/images/screen/5.png" alt="" />
+          <div class="btn">
+            <div class="save p10">
+              <button type="button" class="mui-btn btn-share mui-btn-primary">
+                分 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;享
+              </button>
+            </div>
+            <div class="edit p10">
+              <button type="button" class="watchAgin mui-btn mui-btn-green">
+                再看一遍
+              </button>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="people control"><img src="./static/images/0.png" alt="" /></div>
+      <div class="left current control"></div>
+      <div class="right current control"></div>
+    </div>
+    <!-- 个人展模板 -->
+    <script type="text/html" id="tpl_person">
+      <div class="info"><img src="{{headPhoto}}" alt=""></div>
+      <div class="text">
+          <div class="name"><span>{{userName}}</span></div>
+          <p style="color: black">{{signContent}}</p>
+          <p>{{corpName}}</p>
+          <p>{{introduction}}</p>
+      </div>
+    </script>
+    <!-- 故事展模板 -->
+    <script type="text/html" id="tpl_myStory">
+      <div class="imgDes"></div>
+      <div class="story swiper-no-swiping">
+          <div class="swiper-wrapper">
+              {{each stories v i}}
+              <div class="swiper-slide" data-description="{{v.picDescription}}"><img src="{{v.picUrl}}" alt=""></div>
+              {{/each}}
+          </div>
+          <div class="swiper-pagination"></div>
+      </div>
+    </script>
+    <!-- 留言板模板 -->
+  
+    <!-- 留言板数据模板 -->
+    <script type="text/html" id="tpl_Minfo">
+       <ul>
+          {{each comments v i }}
+          <li>
+              <div class="title">
+                  <span class="tel">{{v.mobile.slice(0,3) + "****" + v.mobile.slice(7)}}</span>
+                  <!-- .slice(0,3) + "****" + v.mobile.slice(7) -->
+                  <span class="time">{{v.commentTime.slice(5)}}</span>
+                  <!-- .split('T')[0] + " " + v.commentTime.split('T')[1].slice(0,8) -->
+              </div>
+              <div class="detail">{{v.commentContent}}</div>
+          </li>
+          {{/each}}
+      </ul>
+    </script>
+    <!-- 验证码模态框1-->
+    <div class="dialog" style="display:none;">
+      <form class="mui-input-group" id="form">
+        <div class="mui-clearfix">
+          <!-- 取消按钮 -->
+          <span class="mui-icon mui-icon-closeempty mui-pull-right btn-cancel"></span>
+        </div>
+        <div class="mui-input-row">
+          <!-- <label>手机号</label> -->
+          <input
+            type="tel"
+            name="mobile"
+            maxlength="11"
+            placeholder="手机号"
+            class="mobile"
+          />
+        </div>
+        <div class="mui-input-row codeLine">
+          <!-- <label>验证码</label> -->
+          <input
+            type="tel"
+            maxlength="4"
+            name="code"
+            placeholder="验证码"
+            class="code"
+          />
+          <button type="button" class="getCode mui-btn">获取验证码</button>
+        </div>
+        <div class="mui-button-row">
+          <button
+            type="button"
+            class="m-lr btn-confirm">确认</button>
+          <!-- <button type="button" class="mui-btn m-lr btn-cancel">取消</button> -->
+        </div>
+      </form>
+    </div>
+    <!-- 输入评论的弹框 -->
+    <!-- mui-backdrop -->
+    <div class="dialog2 " style="display:none;">
+      <form class="mui-input-group" id="form2">
+        <div class="mui-clearfix">
+          <!-- 取消按钮 -->
+          <span class="mui-icon mui-icon-closeempty mui-pull-right btn-cancel"></span>
+        </div>
+        <div class="mui-input-row">
+          <!--  onkeyup="checkLength(this, 30);" -->
+          <!-- <label>手机号</label> -->
+          <input
+            class="content"
+            type="text"
+            name="content"
+            maxlength="30"
+            placeholder="说两句吧..."
+            focus
+          />
+        </div>
+        <div class="mui-button-row">
+          <button
+            type="button"
+            class="m-lr btn-confirm">确认</button>
+          <!-- <button type="button" class="mui-btn m-lr btn-cancel">取消</button> -->
+        </div>
+      </form>
+    </div>
+    <div class="mui-backdrop" style="display:none;"></div>
+    <script src="./static/lib/jquery.min.js"></script>
+    <script src="./static/lib/imagesloaded.pkgd.min.js"></script>
+    <script src="./static/lib/template-web.js"></script>
+    <script src="./static/lib/swiper.js"></script>
+    <script src="./static/lib/mui/js/mui.js"></script>
+    <script src="./config.js"></script>
+    <script src="./static/js/common.js"></script>
+    <!-- <script src="./static/js/index.js"></script> -->
+    <script>document.write('<script src="./static/js/index.js?t=' + new Date().getTime() + '"><\/script>')</script>
+  </body>
+</html>
